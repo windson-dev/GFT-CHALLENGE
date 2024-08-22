@@ -53,8 +53,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void update(final Long id, CustomerUpdateDTO customerUpdateDTO) throws EntityNotFoundException {
         Customer customer = findCustomerEntityById(id);
-
         customerMapper.customerUpdateFromCustomerUpdateDTO(customerUpdateDTO, customer);
+
+        if (customerUpdateDTO.password() != null) {
+            customer.setPassword(passwordEncoder.encode(customerUpdateDTO.password()));
+        }
 
         customerRepository.save(customer);
     }

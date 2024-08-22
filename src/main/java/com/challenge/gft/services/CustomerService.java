@@ -14,9 +14,14 @@ import java.util.List;
 
 public interface CustomerService {
     void create(final CustomerCreateDTO customerCreateDTO) throws DocumentAlreadyExistException;
+
     void update(final Long id, final CustomerUpdateDTO customerUpdateDTO) throws EntityNotFoundException;
-    CustomerReadDTO findById(final Long id) throws EntityNotFoundException;
-    List<CustomerReadDTO> findAll();
-    Page<CustomerReadDTO> getPaginatedFiltered(final Specification<Customer> spec, final Pageable pageable);
+
     void softDelete(final Long id) throws EntityNotFoundException;
+
+    CustomerReadDTO findById(final Long id) throws EntityNotFoundException;
+
+    List<CustomerReadDTO> findAll();
+
+    Page<CustomerReadDTO> getPaginatedFiltered(final Specification<Customer> spec, final Pageable pageable);
 }
