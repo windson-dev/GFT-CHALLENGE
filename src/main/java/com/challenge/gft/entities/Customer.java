@@ -65,5 +65,5 @@ public class Customer {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    private List<AccountBank> accounts;
+    private List<AccountBank> accountBankList;
 }

@@ -4,8 +4,8 @@ import com.challenge.gft.dtos.customer.CustomerCreateDTO;
 import com.challenge.gft.dtos.customer.CustomerReadDTO;
 import com.challenge.gft.dtos.customer.CustomerUpdateDTO;
 import com.challenge.gft.entities.Customer;
-import com.challenge.gft.exceptions.customs.DocumentAlreadyExistException;
-import com.challenge.gft.exceptions.customs.EntityNotFoundException;
+import com.challenge.gft.exceptions.customs.NotFoundException;
+import com.challenge.gft.exceptions.customs.UniqueConstraintViolationException;
 import com.challenge.gft.mapper.CustomerMapper;
 import com.challenge.gft.repositories.CustomerRepository;
 import com.challenge.gft.services.CustomerService;
@@ -54,7 +54,7 @@ public class CustomerServiceTest {
 
     @Test
     @DisplayName("Should find customer with success")
-    void should_find_customer_by_id() throws EntityNotFoundException {
+    void should_find_customer_by_id() throws NotFoundException {
         Customer customer = new Customer();
         final var id = 1L;
 
@@ -75,7 +75,7 @@ public class CustomerServiceTest {
 
     @Test
     @DisplayName("Should create customer with correct values")
-    void should_create_customer_with_correct_values() throws DocumentAlreadyExistException {
+    void should_create_customer_with_correct_values() throws UniqueConstraintViolationException {
         CustomerCreateDTO customerCreateDTO = new CustomerCreateDTO(
                 "customer",
                 "07524914075",
@@ -101,7 +101,7 @@ public class CustomerServiceTest {
 
     @Test
     @DisplayName("Should update customer with correct values")
-    void should_update_customer_with_correct_values() throws EntityNotFoundException {
+    void should_update_customer_with_correct_values() throws NotFoundException {
         Customer customer = new Customer();
         CustomerUpdateDTO customerUpdateDTO = new CustomerUpdateDTO(
                 "name",
@@ -124,7 +124,7 @@ public class CustomerServiceTest {
             customerInvocationOnMock.setPassword(customerUpdateDTOInvocationOnMock.password());
 
             return null;
-        }).when(customerMapperMock).customerUpdateFromCustomerUpdateDTO(customerUpdateDTO, customer);
+        }).when(customerMapperMock).updateCustomerFromDTO(customerUpdateDTO, customer);
 
         this.sut.update(id, customerUpdateDTO);
 
@@ -139,7 +139,7 @@ public class CustomerServiceTest {
 
     @Test
     @DisplayName("Should delete customer")
-    void should_delete_customer() throws EntityNotFoundException {
+    void should_delete_customer() throws NotFoundException {
         Customer customer = new Customer();
         final var customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
         final Long id = 1L;
@@ -169,18 +169,11 @@ public class CustomerServiceTest {
 
         when(customerRepositoryMock.findAll(spec, pageable)).thenReturn(fakeUserPage);
 
-        for (Customer customer : fakeUsers) {
-            CustomerReadDTO customerReadDTO = new CustomerReadDTO("name",
-                    "document",
-                    "address");
-            when(customerMapperMock.customerReadDTOToCustomer(customer)).thenReturn(customerReadDTO);
-        }
-
         Page<CustomerReadDTO> result = this.sut.getPaginatedFiltered(spec, pageable);
 
         verify(customerRepositoryMock).findAll(spec, pageable);
         List<CustomerReadDTO> expectedList = fakeUsers.stream()
-                .map(customer -> customerMapperMock.customerReadDTOToCustomer(customer))
+                .map(customer -> customerMapperMock.customerToCustomerReadDTO(customer))
                 .collect(Collectors.toList());
 
         assertEquals(new PageImpl<>(expectedList, pageable, fakeUsers.size()), result);

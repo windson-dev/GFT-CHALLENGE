@@ -1,5 +1,6 @@
 package com.challenge.gft.specification;
 
+import com.challenge.gft.entities.AccountBank;
 import com.challenge.gft.entities.Customer;
 import net.kaczmarzyk.spring.data.jpa.domain.LikeIgnoreCase;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,4 +15,9 @@ public class SpecificationTemplate {
             @Spec(path = "address", spec = LikeIgnoreCase.class)
     })
     public interface CustomerSpec extends Specification<Customer> {}
+
+    @And({
+            @Spec(path = "status", spec = LikeIgnoreCase.class)
+    })
+    public interface AccountBankSpec extends Specification<AccountBank> {}
 }

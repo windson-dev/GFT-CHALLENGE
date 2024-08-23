@@ -1,7 +1,7 @@
 package com.challenge.gft.exceptions;
 
-import com.challenge.gft.exceptions.customs.DocumentAlreadyExistException;
-import com.challenge.gft.exceptions.customs.EntityNotFoundException;
+import com.challenge.gft.exceptions.customs.NotFoundException;
+import com.challenge.gft.exceptions.customs.UniqueConstraintViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +28,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFoundErrors(final EntityNotFoundException ex) {
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFoundErrors(final NotFoundException ex) {
         final var errorDTO = ErrorResponse.builder()
                 .message(ex.getMessage())
                 .build();
@@ -37,8 +37,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDTO, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(DocumentAlreadyExistException.class)
-    public ResponseEntity<ErrorResponse> documentAlreadyExistException(final DocumentAlreadyExistException ex) {
+    @ExceptionHandler(UniqueConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> uniqueConstraintViolationException(final UniqueConstraintViolationException ex) {
         final var errorDTO = ErrorResponse.builder()
                 .message(ex.getMessage())
                 .build();

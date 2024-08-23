@@ -3,8 +3,8 @@ package com.challenge.gft.controllers;
 import com.challenge.gft.dtos.customer.CustomerCreateDTO;
 import com.challenge.gft.dtos.customer.CustomerReadDTO;
 import com.challenge.gft.dtos.customer.CustomerUpdateDTO;
-import com.challenge.gft.exceptions.customs.DocumentAlreadyExistException;
-import com.challenge.gft.exceptions.customs.EntityNotFoundException;
+import com.challenge.gft.exceptions.customs.NotFoundException;
+import com.challenge.gft.exceptions.customs.UniqueConstraintViolationException;
 import com.challenge.gft.services.CustomerService;
 import com.challenge.gft.specification.SpecificationTemplate;
 import jakarta.validation.Valid;
@@ -33,13 +33,26 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping
-    public ResponseEntity<Object> create(@RequestBody @Valid final CustomerCreateDTO customerCreateDTO) throws DocumentAlreadyExistException {
+    public ResponseEntity<Object> create(@RequestBody @Valid final CustomerCreateDTO customerCreateDTO) throws UniqueConstraintViolationException {
         customerService.create(customerCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> update(@PathVariable(value = "id") final Long id, @RequestBody CustomerUpdateDTO customerUpdateDTO) throws NotFoundException {
+        customerService.update(id, customerUpdateDTO);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> softDelete(
+            @PathVariable(value = "id") final Long id) throws NotFoundException {
+        customerService.softDelete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<CustomerReadDTO> findById(@PathVariable(value = "id") final Long id) throws EntityNotFoundException {
+    public ResponseEntity<CustomerReadDTO> findById(@PathVariable(value = "id") final Long id) throws NotFoundException {
         return ResponseEntity.status(HttpStatus.OK).body(customerService.findById(id));
     }
 
@@ -56,18 +69,5 @@ public class CustomerController {
                                                                               sort = "id",
                                                                               direction = Sort.Direction.DESC) final Pageable pageable) {
         return ResponseEntity.status(HttpStatus.OK).body(customerService.getPaginatedFiltered(spec, pageable));
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable(value = "id") final Long id, @RequestBody CustomerUpdateDTO customerUpdateDTO) throws EntityNotFoundException {
-        customerService.update(id, customerUpdateDTO);
-        return ResponseEntity.status(HttpStatus.OK).build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> softDelete(
-            @PathVariable(value = "id") final Long id) throws EntityNotFoundException {
-        customerService.softDelete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
