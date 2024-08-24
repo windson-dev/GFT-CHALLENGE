@@ -14,7 +14,7 @@ import java.util.List;
 public interface CustomerMapper {
     CustomerReadDTO customerToCustomerReadDTO(Customer customer);
 
-    List<CustomerReadDTO> customerListToCustomerReadDTOList(List<Customer> customer);
+    List<CustomerReadDTO> customerListToCustomerReadDTOList(List<Customer> customerList);
 
     void updateCustomerFromDTO(CustomerUpdateDTO customerUpdateDTO, @MappingTarget Customer customer);
 }
