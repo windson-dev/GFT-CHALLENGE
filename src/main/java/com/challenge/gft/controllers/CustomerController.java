@@ -39,7 +39,7 @@ public class CustomerController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable(value = "id") final Long id, @RequestBody CustomerUpdateDTO customerUpdateDTO) throws NotFoundException {
+    public ResponseEntity<Object> update(@PathVariable(value = "id") final Long id, @RequestBody @Valid CustomerUpdateDTO customerUpdateDTO) throws NotFoundException {
         customerService.update(id, customerUpdateDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

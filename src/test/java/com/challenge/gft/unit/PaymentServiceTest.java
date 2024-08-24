@@ -48,7 +48,7 @@ public class PaymentServiceTest {
     }
 
     @Test
-    @DisplayName("should create payment with correct values")
+    @DisplayName("Should create payment with correct values")
     void should_create_payment_with_correct_values() throws NotFoundException, IOException, BadRequestException {
         AccountBank sender = AccountBank.builder()
                 .id(1L)

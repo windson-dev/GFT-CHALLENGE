@@ -39,9 +39,9 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional
     public void create(final PaymentCreateDTO paymentCreateDTO) throws NotFoundException, IOException, BadRequestException {
         AccountBank sender = accountBankRepository.findById(paymentCreateDTO.senderAccountId())
-                .orElseThrow(() -> new NotFoundException("Receiver account not found"));
-        AccountBank receiver = accountBankRepository.findById(paymentCreateDTO.receiverAccountId())
                 .orElseThrow(() -> new NotFoundException("Sender account not found"));
+        AccountBank receiver = accountBankRepository.findById(paymentCreateDTO.receiverAccountId())
+                .orElseThrow(() -> new NotFoundException("Receiver account not found"));
 
         if (sender.getStatus() == AccountBankStatus.INACTIVE || receiver.getStatus() == AccountBankStatus.INACTIVE) {
             throw new BadRequestException("Sender account or receiver account is inactive");
