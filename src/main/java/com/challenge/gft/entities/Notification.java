@@ -1,11 +1,8 @@
 package com.challenge.gft.entities;
 
-import com.challenge.gft.enums.AccountBankStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,23 +25,16 @@ import java.time.LocalDateTime;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "account_bank")
+@Table(name = "notification")
 @Where(clause = "deleted_at IS NULL")
-public class AccountBank {
+public class Notification {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String agency;
-
-    @Column(nullable = false)
-    private Double balance;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private AccountBankStatus status;
+    @Column(length = 1000)
+    private String text;
 
     @CreationTimestamp
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")

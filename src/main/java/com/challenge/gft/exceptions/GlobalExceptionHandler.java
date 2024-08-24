@@ -1,5 +1,6 @@
 package com.challenge.gft.exceptions;
 
+import com.challenge.gft.exceptions.customs.BadRequestException;
 import com.challenge.gft.exceptions.customs.NotFoundException;
 import com.challenge.gft.exceptions.customs.UniqueConstraintViolationException;
 import org.springframework.http.HttpHeaders;
@@ -44,5 +45,14 @@ public class GlobalExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(errorDTO, new HttpHeaders(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorResponse> badRequestException(final BadRequestException ex) {
+        final var errorDTO = ErrorResponse.builder()
+                .message(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorDTO, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 }

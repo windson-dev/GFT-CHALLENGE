@@ -120,7 +120,7 @@ public class AccountBankServiceTest {
 
         final var customerArgumentCaptorValue = customerArgumentCaptor.getValue();
 
-        assertEquals(accountBank.getStatus(), customerArgumentCaptorValue.getStatus());
+        assertEquals(accountBank.getDeletedAt(), customerArgumentCaptorValue.getDeletedAt());
     }
 
     @Test

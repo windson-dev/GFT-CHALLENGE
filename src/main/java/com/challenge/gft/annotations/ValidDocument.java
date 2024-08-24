@@ -1,5 +1,6 @@
 package com.challenge.gft.annotations;
 
+import com.challenge.gft.annotations.impl.DocumentValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
