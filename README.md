@@ -7,7 +7,7 @@ Back-end Run The Bank!
 3. [Endpoints da API](#endpoints-da-api)
    - [Cliente](#cliente)
    - [Conta Bancária](#conta-bancária)
-   - [Pagaments](#pagamento)
+   - [Pagamentos](#pagamento)
 4. [Testes](#testes)
 5. [Postman Collection](#postman-collection)
 
