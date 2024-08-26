@@ -393,23 +393,6 @@ Back-end Run The Bank!
 ## Testes
 ##### Comando para rodar os testes: mvn test
 
-Customer Service test
-
-![image](https://github.com/user-attachments/assets/4a9e87fc-e698-4ed5-aa1c-e4388ae3d73d)
-
-Account Bank service test
-
-![image](https://github.com/user-attachments/assets/c38547f6-1a9c-4c02-8faa-7c3ac5deaa54)
-
-Payment Service test
-
-![image](https://github.com/user-attachments/assets/f419b5a2-72d6-4373-8ada-6d796165193e)
-
-Todos os Testes
-
-![image](https://github.com/user-attachments/assets/09620964-db1d-4da9-82f3-37fa0410800f)
-
-
 # Propostas de melhoria na arquitetura:
 - Adicionar authenticação JWT para endpoints que necessitam de mais segurança.
 - Adicionar uma nova tabela e um novo serviço de Usuários com sistema de roles para definir quais tipos de usuários podem fazer determinados tipos de requisições.
