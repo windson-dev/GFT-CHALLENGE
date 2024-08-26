@@ -15,7 +15,7 @@ Back-end Run The Bank!
 
 ## Tecnologias utilizadas
 - Java 17
-- Spring Boot
+- Spring Boot 3.3.2
 - Spring Data JPA
 - Banco de dados H2
 - Maven
@@ -25,6 +25,10 @@ Back-end Run The Bank!
 ## Como rodar o projeto
 - Clone o repositório: `git clone git@github.com:windson-dev/GFT-CHALLENGE.git`
 - Instale as dependências: `mvn install`
+- Rodar o projeto: `mvn spring-boot:run`
+
+## Testes
+- Comando para rodar os testes: `mvn test`
 
 
 ## Postman Collection
@@ -389,9 +393,6 @@ Back-end Run The Bank!
 </details>
 
 ---
-
-## Testes
-##### Comando para rodar os testes: mvn test
 
 # Propostas de melhoria na arquitetura:
 - Adicionar authenticação JWT para endpoints que necessitam de mais segurança.
