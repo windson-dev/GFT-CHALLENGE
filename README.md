@@ -25,7 +25,7 @@ Back-end Run The Bank!
 ## Como rodar o projeto
 - Clone o repositório: `git clone git@github.com:windson-dev/GFT-CHALLENGE.git`
 - Instale as dependências: `mvn install`
-- Rodar o projeto: `mvn spring-boot:run`
+- Rodar o projeto: `mvn spring-boot:run` ou `shift + f10` na IDEA Intellij
 
 ## Testes
 - Comando para rodar os testes: `mvn test`
